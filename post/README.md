@@ -46,14 +46,14 @@
   ```
 
 - dispatch <br/>
-  : state 값을 변경하는 함수
+  : (결과적으로) state 값을 변경하는 함수
 - subscribe <br/>
   : dispatch 를 통해 값이 변경되었을 때 구동될 함수들을 등록해주는 함수
 
 #### ? 그럼 reducer 와 dispatch 의 차이는 무엇일까
 
-- 아직 정확하진 않지만, reducer 는 state 를 변경시키는 기계 그 자체에 비유한다면 <br/>
-  dispatch 는 state 를 변경시키는 기계 즉, reducer 에 사용되는 action 이라는 나사를 포함한 톱니바퀴에 비유할 수 있을 것 같다.
+- reducer 는 state 를 변경하는 함수 그 자체이며, <br/>
+  dispatch 는 reducer 에 action 을 전달하는 함수에 해당한다.
 
 <br/>
 
