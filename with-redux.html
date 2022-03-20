@@ -18,28 +18,38 @@
     <script>
       // reducer 는 1)기존의 state 값, 2)action 을 인자로 받는다.
       function reducer(state, action) {
+        console.log(state, action);
         // state 의 초기값이 설정되지 않은 경우,
         // state 의 값이 undefined 인 점을 바탕으로 조건문을 만들어 초기값을 설정하도록 한다.
         if (state === undefined) {
           // 이때, return 되는 값이 state 의 초기값이 되는 것이다.
-          return { color: "yellow" };
+          return { color: 'yellow' };
         }
+        // 기존 state 의 값을 변경하는 것은 좋지 못한 방법이므로,
+        // 이와 동일한 새로운 객체를 만들어 값을 변경하도록 한다.
+        var newState;
+        if (action.type === 'CHANGE_COLOR') {
+          // Object.assign(target, source1, source2 ...); 은 새로운 객체를 만드는 방법으로,
+          // target 객체에 source1 이 덮어씌워지고, 그 다음 source2 가 덮어씌워진다.
+          // 즉, 아래 코드의 경우 빈 객체에 기존 state 값이 덮어씌워지고, { color: 'red' } 이 덮어씌워지게 된다.
+          // 결과적으로 state 와 동일한 형태에서 color 속성의 값만 'red' 로 바뀐 객체가 생성된다는 것이다.
+          newState = Object.assign({}, state, { color: action.color });
+        }
+        return newState;
       }
       // console.log(store.getState()); 를 통해 콘솔창에서 확인 가능하다.
       var store = Redux.createStore(reducer);
 
       function red() {
         var state = store.getState();
-        document.querySelector("#red").innerHTML = `
+        document.querySelector('#red').innerHTML = `
           <div id="component_red" class="container" style="background-color:${state.color}">
             <h1>red</h1>
             <input
               type="button"
               value="fire"
               onClick="
-                document.querySelector('#component_red').style.backgroundColor='red';
-                document.querySelector('#component_green').style.backgroundColor='red';
-                document.querySelector('#component_blue').style.backgroundColor='red';
+              store.dispatch({ type: 'CHANGE_COLOR', color: 'red' });
             " />
           </div>
         `;
