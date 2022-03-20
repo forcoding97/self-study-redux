@@ -11,6 +11,17 @@
   : 상태로 저장된 값
 - getState <br/>
   : 현재 state 값을 불러오는 함수
+
+  ```javascript
+  function reducer(state, action) {
+    if (state === undefined) {
+      return { color: "yellow" };
+    }
+  }
+  var store = Redux.createStore(reducer);
+  console.log(store.getState()); // { color: 'yellow' }
+  ```
+
 - render <br/>
   : state 값에 따라 다르게 렌더링되게 해주는 함수
 - reducer <br/>
