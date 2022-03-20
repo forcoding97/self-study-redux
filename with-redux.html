@@ -14,6 +14,8 @@
     </style>
 
     <div id="red"></div>
+    <div id="blue"></div>
+    <div id="green"></div>
 
     <script>
       // reducer 는 1)기존의 state 값, 2)action 을 인자로 받는다.
@@ -54,7 +56,47 @@
           </div>
         `;
       }
+
+      // store.subscribe(red); 를 통해 red 라는 함수를 subscribe 에 등록해두면
+      // state 가 바뀔 때마다 red 라는 함수가 실행된다.
+      store.subscribe(red);
       red();
+
+      function blue() {
+        var state = store.getState();
+        document.querySelector('#blue').innerHTML = `
+          <div id="component_red" class="container" style="background-color:${state.color}">
+            <h1>blue</h1>
+            <input
+              type="button"
+              value="fire"
+              onClick="
+              store.dispatch({ type: 'CHANGE_COLOR', color: 'blue' });
+            " />
+          </div>
+        `;
+      }
+
+      store.subscribe(blue);
+      blue();
+
+      function green() {
+        var state = store.getState();
+        document.querySelector('#green').innerHTML = `
+          <div id="component_red" class="container" style="background-color:${state.color}">
+            <h1>green</h1>
+            <input
+              type="button"
+              value="fire"
+              onClick="
+              store.dispatch({ type: 'CHANGE_COLOR', color: 'green' });
+            " />
+          </div>
+        `;
+      }
+
+      store.subscribe(green);
+      green();
     </script>
   </body>
 </html>
